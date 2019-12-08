@@ -1,0 +1,39 @@
+buildscript {
+    ext.kotlin_version = '1.2.71'
+    repositories {
+        google()  // Google's Maven repository
+        jcenter()
+    }
+
+    dependencies {
+        //Google Auth
+        classpath 'com.google.gms:google-services:4.2.0' //sdk firebase
+
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        //Flutter Auth
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.google.gms:google-services:4.2.0'
+
+    }
+}
+
+allprojects {
+    repositories {
+        google()  // Google's Maven repository
+        jcenter()
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "61961353864",
+    "firebase_url": "https://chatting-b91eb.firebaseio.com",
+    "project_id": "chatting-b91eb",
+    "storage_bucket": "chatting-b91eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61961353864:android:c87a1a675f84869aad3d3d",
+        "android_client_info": {
+          "package_name": "com.enanca.chat_fire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "61961353864-tr1sammk44aumsjjcfsi4f2ro2jbf031.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQahWv7ONwTyqygcawIsiURbLr4oL9mFQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "61961353864-tr1sammk44aumsjjcfsi4f2ro2jbf031.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
