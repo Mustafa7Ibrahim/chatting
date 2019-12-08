@@ -37,6 +37,7 @@ class _MyAppState extends State<MyApp> {
       });
     }
   }
+  // this is just a test
 
  void _signout() async{
    await _auth.signOut(); 
