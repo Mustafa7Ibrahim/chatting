@@ -1,7 +1,39 @@
 import 'package:chat_fire/chat_home/chat.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class NextBar extends StatelessWidget {
+final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+class NextBar extends StatefulWidget {
+  @override
+  _NextBarState createState() => _NextBarState();
+}
+
+class _NextBarState extends State<NextBar> {
+  void _signInAnon() async {
+    AuthResult firebaseUser = await _firebaseAuth.signInAnonymously();
+
+    if (firebaseUser != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ChatHome(),
+        ),
+      );
+    } else {
+      final snackbar = SnackBar(
+        content: Text('Sign in failed'),
+        action: SnackBarAction(
+          label: 'OK',
+          onPressed: () {},
+        ),
+      );
+      Scaffold.of(context).showSnackBar(snackbar);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,12 +74,7 @@ class NextBar extends StatelessWidget {
                         icon: Icon(Icons.arrow_forward),
                         color: Colors.white,
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChatHome(),
-                            ),
-                          );
+                          _signInAnon();
                         },
                       ),
                     ),
