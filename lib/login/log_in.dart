@@ -1,8 +1,7 @@
 import 'package:chat_fire/login/bar.dart';
-import 'package:chat_fire/login/edit_box.dart';
-import 'package:chat_fire/login/login_logo.dart';
-import 'package:chat_fire/login/next_bar.dart';
 import 'package:flutter/material.dart';
+
+import 'editBox.dart';
 
 class LoginHome extends StatefulWidget {
   @override
@@ -20,9 +19,6 @@ class _LoginHomeState extends State<LoginHome> {
             children: <Widget>[
               Bar(),
               EditBox(),
-              SigninLogo(),
-              Spacer(),
-              NextBar(),
             ],
           ),
         ),

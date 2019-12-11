@@ -1,4 +1,6 @@
+import 'package:chat_fire/chat_home/chat.dart';
 import 'package:chat_fire/login/log_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
@@ -7,6 +9,24 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  TextEditingController firstNameInputController;
+  TextEditingController lastNameInputController;
+  TextEditingController emailInputController;
+  TextEditingController pwdInputController;
+  TextEditingController confirmPwdInputController;
+
+  @override
+  initState() {
+    firstNameInputController = new TextEditingController();
+    lastNameInputController = new TextEditingController();
+    emailInputController = new TextEditingController();
+    pwdInputController = new TextEditingController();
+    confirmPwdInputController = new TextEditingController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +52,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                   ),
-                  Spacer(
-                    flex: 1,
-                  ),
+                  Spacer(),
                   Padding(
                     padding: const EdgeInsets.only(
                       top: 18.0,
@@ -55,8 +73,8 @@ class _SignUpState extends State<SignUp> {
                           context,
                           MaterialPageRoute(
                             builder: (
-                                context,
-                                ) =>
+                              context,
+                            ) =>
                                 LoginHome(),
                           ),
                         );
@@ -131,56 +149,86 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 60.0,
-                        right: 30.0,
-                        left: 30.0,
-                      ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: "Email address",
-                          hintStyle: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.blueGrey,
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 18.0,
+                              right: 30.0,
+                              left: 30.0,
+                            ),
+                            child: TextFormField(
+                              controller: firstNameInputController,
+                              validator: (value) => value.isEmpty
+                                  ? 'This faild can not be empty!'
+                                  : null,
+                              decoration: InputDecoration(
+                                hintText: 'Name',
+                                hintStyle: TextStyle(
+                                    color: Colors.grey, fontSize: 20.0),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 18.0,
-                        right: 30.0,
-                        left: 30.0,
-                      ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: "Password",
-                          hintStyle: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.blueGrey,
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 18.0,
+                              right: 30.0,
+                              left: 30.0,
+                            ),
+                            child: TextFormField(
+                              controller: emailInputController,
+                              validator: (value) => value.isEmpty
+                                  ? 'Email can not be empty!'
+                                  : null,
+                              decoration: InputDecoration(
+                                hintText: 'Email address',
+                                hintStyle: TextStyle(
+                                    color: Colors.grey, fontSize: 20.0),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 18.0,
-                        right: 30.0,
-                        left: 30.0,
-                      ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: "Password again",
-                          hintStyle: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.blueGrey,
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 18.0,
+                              right: 30.0,
+                              left: 30.0,
+                            ),
+                            child: TextFormField(
+                              controller: pwdInputController,
+                              validator: (value) => value.isEmpty
+                                  ? 'Password can not be empty!'
+                                  : null,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                hintText: 'Password',
+                                hintStyle: TextStyle(
+                                    color: Colors.grey, fontSize: 20.0),
+                              ),
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 18.0,
+                              right: 30.0,
+                              left: 30.0,
+                            ),
+                            child: TextFormField(
+                              controller: confirmPwdInputController,
+                              obscureText: true,
+                              validator: (value) => value.isEmpty
+                                  ? 'this faild can not be empty!'
+                                  : null,
+                              decoration: InputDecoration(
+                                hintText: 'Conferm Password',
+                                hintStyle: TextStyle(
+                                    color: Colors.grey, fontSize: 20.0),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
                     ),
                     Row(
                       children: <Widget>[
@@ -190,10 +238,9 @@ class _SignUpState extends State<SignUp> {
                             left: 30.0,
                           ),
                           child: SizedBox(
-                            height: 30.0,
-                            width: 30.0,
-                            child:Icon(Icons.fast_forward)
-                          ),
+                              height: 30.0,
+                              width: 30.0,
+                              child: Icon(Icons.fast_forward)),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
@@ -230,9 +277,32 @@ class _SignUpState extends State<SignUp> {
                             Icons.arrow_forward,
                           ),
                           color: Colors.white,
-                          onPressed: () => Navigator.pop(
-                            context,
-                          ),
+                          onPressed: () {
+                            if (_formKey.currentState.validate()) {
+                              if (pwdInputController.text ==
+                                  confirmPwdInputController.text) {
+                                FirebaseAuth.instance
+                                    .createUserWithEmailAndPassword(
+                                      email: emailInputController.text,
+                                      password: pwdInputController.text,
+                                    )
+                                    .then(
+                                      (result) => {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ChatHome())),
+                                        firstNameInputController.clear(),
+                                        lastNameInputController.clear(),
+                                        emailInputController.clear(),
+                                        pwdInputController.clear(),
+                                        confirmPwdInputController.clear(),
+                                      },
+                                    );
+                              }
+                            }
+                          },
                         ),
                       ),
                     ),
