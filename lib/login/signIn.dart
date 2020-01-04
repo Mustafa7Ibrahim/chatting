@@ -1,23 +1,22 @@
-import 'package:chat_fire/login/bar.dart';
 import 'package:flutter/material.dart';
-
+import 'topBar.dart';
 import 'editBox.dart';
 
-class LoginHome extends StatefulWidget {
+class SignIn extends StatefulWidget {
   @override
-  _LoginHomeState createState() => _LoginHomeState();
+  _SignInState createState() => _SignInState();
 }
 
-class _LoginHomeState extends State<LoginHome> {
+class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Container(
+        child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Bar(),
+              TopBar(),
               EditBox(),
             ],
           ),
