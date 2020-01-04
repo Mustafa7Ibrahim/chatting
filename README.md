@@ -1,9 +1,11 @@
 # chat_fire
 
-A new Flutter application.
+it's a sample chat application using firebase as a backend.
 
-## Getting Started
+team:
+- Mohamed Abd Elkhalek
+- Mohamed Emad
+- Mustafa Ibrahim
 
-This project is a starting point for a Flutter application.
-
-this is just for tranning
+team leader:
+- Ahmed Shokry
