@@ -54,7 +54,6 @@ class EditBoxState extends State<EditBox> {
               ),
             ),
           ),
-          
           Form(
             key: _formKey,
             child: Column(
@@ -90,7 +89,6 @@ class EditBoxState extends State<EditBox> {
                     validator: (value) =>
                         value.isEmpty ? 'Password can not be empty!' : null,
                     decoration: InputDecoration(
-                      
                       hintText: 'Password',
                       labelText: 'Password',
                       hintStyle: TextStyle(
