@@ -7,5 +7,3 @@ team:
 - Mohamed Emad
 - Mustafa Ibrahim
 
-team leader:
-- Ahmed Shokry
