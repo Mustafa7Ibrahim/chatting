@@ -31,21 +31,21 @@ class AuthService {
             email: email, password: password);
         await _usersCollection.document(uid).setData({'userName': name});
         FirebaseUser user = result.user;
-        return _userFormFirebaseUser(user: user, name: name);
+        return _userFormFirebaseUser(user);
       } catch (e) {
         print(e.toString());
       }
     }
   }
 
-  // // auth chanage user stream
-  // Stream<User> get user {
-  //   return _firebaseAuth.onAuthStateChanged.map(_userFormFirebaseUser);
-  // }
+  //  auth chanage user stream
+  Stream<User> get user {
+    return _firebaseAuth.onAuthStateChanged.map(_userFormFirebaseUser);
+  }
 
   // create a local data of the user form firebase
-  User _userFormFirebaseUser({FirebaseUser user, String name}) {
-    return user != null ? User(uid: user.uid, name: name) : null;
+  User _userFormFirebaseUser(FirebaseUser user) {
+    return user != null ? User(uid: user.uid) : null;
   }
 
   // sign in to firebase using email and password
@@ -53,7 +53,7 @@ class AuthService {
     try {
       AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
-      return _userFormFirebaseUser(user: user);
+      return _userFormFirebaseUser(user);
     } catch (e) {
       print(e.toString());
     }

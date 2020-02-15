@@ -17,32 +17,31 @@ class _CategorySelectorState extends State<CategorySelector> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90.0,
+      height: 60.0,
       color: Theme.of(context).primaryColor,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
-        itemBuilder: (
-            BuildContext context,
-            int index,
-            ) {
+        itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              setState(() {
-                slectedIndex = index;
-              });
+              setState( 
+                () {
+                  slectedIndex = index;
+                },
+              );
             },
             child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 30.0,
-                vertical: 30.0,
+                vertical: 13.0,
               ),
               child: Text(
                 categories[index],
                 style: TextStyle(
                   color: index == slectedIndex ? Colors.white : Colors.white60,
                   fontWeight: FontWeight.bold,
-                  letterSpacing: 1.5,
+                  letterSpacing: 1.4,
                   fontSize: 24.0,
                 ),
               ),
