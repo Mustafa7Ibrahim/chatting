@@ -1,4 +1,4 @@
-import 'package:chat_fire/chatting.dart';
+import 'package:chat_fire/screens/chat/chatting.dart';
 import 'package:flutter/material.dart';
 
 class RecentChats extends StatelessWidget {

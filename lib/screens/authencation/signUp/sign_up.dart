@@ -1,6 +1,7 @@
-import 'package:chat_fire/chat_home/chat.dart';
-import 'package:chat_fire/login/signIn.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:chat_fire/auth/authService.dart';
+import 'package:chat_fire/screens/authencation/signIn/signIn.dart';
+import 'package:chat_fire/shared/constant.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -10,46 +11,24 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  // an auth service object
+  final AuthService _authService = AuthService();
+
+  // global form key
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  TextEditingController firstNameInputController;
-  TextEditingController lastNameInputController;
+  // input controller
+  TextEditingController nameInputController;
   TextEditingController emailInputController;
-  TextEditingController pwdInputController;
-  TextEditingController confirmPwdInputController;
-
-  void signUp() {
-    if (_formKey.currentState.validate()) {
-      if (pwdInputController.text == confirmPwdInputController.text) {
-        FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-              email: emailInputController.text,
-              password: pwdInputController.text,
-            )
-            .then(
-              (result) => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ChatHome()),
-                ),
-                firstNameInputController.clear(),
-                lastNameInputController.clear(),
-                emailInputController.clear(),
-                pwdInputController.clear(),
-                confirmPwdInputController.clear(),
-              },
-            );
-      }
-    }
-  }
+  TextEditingController passwordInputController;
+  TextEditingController confirmPasswordInputController;
 
   @override
   initState() {
-    firstNameInputController = new TextEditingController();
-    lastNameInputController = new TextEditingController();
+    nameInputController = new TextEditingController();
     emailInputController = new TextEditingController();
-    pwdInputController = new TextEditingController();
-    confirmPwdInputController = new TextEditingController();
+    passwordInputController = new TextEditingController();
+    confirmPasswordInputController = new TextEditingController();
     super.initState();
   }
 
@@ -64,13 +43,13 @@ class _SignUpState extends State<SignUp> {
               Row(
                 children: <Widget>[
                   IconButton(
-                    padding: EdgeInsets.all(30),
+                    padding: EdgeInsets.only(left: 30, top: 24),
                     icon: Icon(FontAwesomeIcons.user),
                     onPressed: () {},
                   ),
                   Spacer(),
                   FlatButton(
-                    padding: EdgeInsets.all(30),
+                    padding: EdgeInsets.only(top: 24, right: 8),
                     child: Text(
                       'Sign In',
                       style: TextStyle(
@@ -89,7 +68,7 @@ class _SignUpState extends State<SignUp> {
                     },
                   ),
                   FlatButton(
-                    padding: EdgeInsets.all(30),
+                    padding: EdgeInsets.only(top: 24, right: 30),
                     child: Text(
                       'Sign Up',
                       style: TextStyle(
@@ -105,24 +84,14 @@ class _SignUpState extends State<SignUp> {
               Row(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(
-                      left: 30,
-                      top: 60,
-                    ),
+                    padding: const EdgeInsets.only(left: 30, top: 44),
                     child: Text(
                       'Hello',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 34,
-                      ),
+                      style: TextStyle(color: Colors.black, fontSize: 34),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                      left: 4,
-                      right: 30,
-                      top: 60,
-                    ),
+                    padding: const EdgeInsets.only(left: 4, right: 30, top: 44),
                     child: Text(
                       'Beautiful,',
                       style: TextStyle(
@@ -138,14 +107,11 @@ class _SignUpState extends State<SignUp> {
                 padding: const EdgeInsets.only(
                   right: 18.0,
                   left: 30.0,
-                  top: 18.0,
+                  top: 12.0,
                 ),
                 child: Text(
-                  'Enter your informations below or logain with a social account.',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.0,
-                  ),
+                  'Enter your informations below or logain \nwith a social account.',
+                  style: TextStyle(color: Colors.black, fontSize: 18.0),
                 ),
               ),
               Form(
@@ -153,75 +119,45 @@ class _SignUpState extends State<SignUp> {
                 child: Column(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(
-                        top: 18.0,
-                        right: 30.0,
-                        left: 30.0,
-                      ),
+                      padding: formPadding,
                       child: TextFormField(
-                        controller: firstNameInputController,
+                        controller: nameInputController,
                         validator: (value) => value.isEmpty
                             ? 'This faild can not be empty!'
                             : null,
-                        decoration: InputDecoration(
-                          hintText: 'Name',
-                          hintStyle:
-                              TextStyle(color: Colors.grey, fontSize: 20.0),
-                        ),
+                        decoration: formDecoration.copyWith(hintText: 'Name'),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(
-                        top: 18.0,
-                        right: 30.0,
-                        left: 30.0,
-                      ),
+                      padding: formPadding,
                       child: TextFormField(
                         controller: emailInputController,
                         validator: (value) =>
                             value.isEmpty ? 'Email can not be empty!' : null,
-                        decoration: InputDecoration(
-                          hintText: 'Email address',
-                          hintStyle:
-                              TextStyle(color: Colors.grey, fontSize: 20.0),
-                        ),
+                        decoration: formDecoration.copyWith(hintText: 'Email'),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(
-                        top: 18.0,
-                        right: 30.0,
-                        left: 30.0,
-                      ),
+                      padding: formPadding,
                       child: TextFormField(
-                        controller: pwdInputController,
-                        validator: (value) =>
-                            value.isEmpty ? 'Password can not be empty!' : null,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          hintText: 'Password',
-                          hintStyle:
-                              TextStyle(color: Colors.grey, fontSize: 20.0),
-                        ),
-                      ),
+                          controller: passwordInputController,
+                          validator: (value) => value.isEmpty
+                              ? 'Password can not be empty!'
+                              : null,
+                          obscureText: true,
+                          decoration:
+                              formDecoration.copyWith(hintText: 'Password')),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(
-                        top: 18.0,
-                        right: 30.0,
-                        left: 30.0,
-                      ),
+                      padding: formPadding,
                       child: TextFormField(
-                        controller: confirmPwdInputController,
+                        controller: confirmPasswordInputController,
                         obscureText: true,
                         validator: (value) => value.isEmpty
                             ? 'this faild can not be empty!'
                             : null,
-                        decoration: InputDecoration(
-                          hintText: 'Conferm Password',
-                          hintStyle:
-                              TextStyle(color: Colors.grey, fontSize: 20.0),
-                        ),
+                        decoration: formDecoration.copyWith(
+                            hintText: 'Conferm Password'),
                       ),
                     ),
                   ],
@@ -230,24 +166,31 @@ class _SignUpState extends State<SignUp> {
               Row(
                 children: <Widget>[
                   IconButton(
-                    padding: EdgeInsets.only(left: 30),
+                    padding: EdgeInsets.only(left: 30, top: 12),
                     icon: Icon(FontAwesomeIcons.google),
                     onPressed: () {},
                   ),
                   IconButton(
-                    padding: EdgeInsets.only(left: 30),
+                    padding: EdgeInsets.only(left: 30, top: 12),
                     icon: Icon(FontAwesomeIcons.facebookF),
                     onPressed: () {},
                   ),
                   Spacer(),
                   Container(
-                    margin: EdgeInsets.all(18.0),
+                    margin: EdgeInsets.only(right: 30, left: 12, top: 12),
                     color: Colors.red[300],
                     child: IconButton(
                       icon: Icon(Icons.arrow_forward),
                       color: Colors.white,
-                      onPressed: () {
-                        signUp();
+                      onPressed: () async {
+                        if (_formKey.currentState.validate()) {
+                          dynamic result = await _authService.signUp(
+                              email: emailInputController.text,
+                              name: nameInputController.text,
+                              password: passwordInputController.text,
+                              rePassword: confirmPasswordInputController.text);
+                          if (result == null) {}
+                        }
                       },
                     ),
                   ),

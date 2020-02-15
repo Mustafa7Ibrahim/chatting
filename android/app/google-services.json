@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "61961353864-lrhr93cremr0rdbhior4cf4v6l6c72k8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.enanca.chat_fire",
+            "certificate_hash": "8817ed47156a2acf70c545e74035e037c628c184"
+          }
+        },
+        {
           "client_id": "61961353864-tr1sammk44aumsjjcfsi4f2ro2jbf031.apps.googleusercontent.com",
           "client_type": 3
         }

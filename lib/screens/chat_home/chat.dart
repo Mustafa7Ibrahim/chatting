@@ -1,7 +1,7 @@
 
-import 'package:chat_fire/chat_home/category_selector.dart';
-import 'package:chat_fire/chat_home/favorete_contects.dart';
-import 'package:chat_fire/chat_home/recent_chats.dart';
+import './category_selector.dart';
+import './favorete_contects.dart';
+import './recent_chats.dart';
 import 'package:flutter/material.dart';
 
 class ChatHome extends StatefulWidget {
