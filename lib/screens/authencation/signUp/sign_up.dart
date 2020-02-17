@@ -1,5 +1,6 @@
 import 'package:chat_fire/auth/authService.dart';
 import 'package:chat_fire/screens/authencation/signIn/signIn.dart';
+import 'package:chat_fire/screens/chat_home/chat.dart';
 import 'package:chat_fire/shared/constant.dart';
 
 import 'package:flutter/material.dart';
@@ -189,7 +190,16 @@ class _SignUpState extends State<SignUp> {
                               name: nameInputController.text,
                               password: passwordInputController.text,
                               rePassword: confirmPasswordInputController.text);
-                          if (result == null) {}
+                          if (result == null) {
+                            print('something went wrong....');
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChatHome(),
+                              ),
+                            );
+                          }
                         }
                       },
                     ),

@@ -1,4 +1,9 @@
 
+import 'package:chat_fire/auth/authService.dart';
+import 'package:chat_fire/models/user.dart';
+import 'package:chat_fire/services/chatCollection.dart';
+import 'package:provider/provider.dart';
+
 import './category_selector.dart';
 import './favorete_contects.dart';
 import './recent_chats.dart';
@@ -10,34 +15,40 @@ class ChatHome extends StatefulWidget {
 }
 
 class _ChatHomeState extends State<ChatHome> {
+  // make an object of authservices
+  final AuthService _authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          iconSize: 24.0,
-          color: Colors.white,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
+    return StreamProvider<List<User>>.value(
+      value: ChatDatabase().users,
+          child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
             iconSize: 24.0,
             color: Colors.white,
-            onPressed: () {},
-          )
-        ],
-        elevation: 0.0,
-      ),
-      body: Column(
-        children: <Widget>[
-          CategorySelector(),
-          FavoreteContects(),
-          RecentChats(),
-        ],
+            onPressed: () async {
+              await _authService.signOut();
+            },
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.search),
+              iconSize: 24.0,
+              color: Colors.white,
+              onPressed: () {},
+            )
+          ],
+          elevation: 0.0,
+        ),
+        body: Column(
+          children: <Widget>[
+            CategorySelector(),
+            FavoreteContects(),
+            RecentChats(),
+          ],
+        ),
       ),
     );
   }

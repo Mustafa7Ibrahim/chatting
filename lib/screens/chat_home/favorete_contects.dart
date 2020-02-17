@@ -41,19 +41,19 @@ class FavoreteContects extends StatelessWidget {
                 ),
               ),
               Container(
-                height: 120.0,
+                height: 90.0,
                 child: ListView.builder(
                   padding: EdgeInsets.only(left: 10.0),
                   scrollDirection: Axis.horizontal,
-                  itemCount: 12,
+                  itemCount: 3,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
                       child: Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Column(
                           children: <Widget>[
                             CircleAvatar(
-                              radius: 35.0,
+                              radius: 24.0,
                             ),
                             SizedBox(
                               height: 6.0,
@@ -62,11 +62,10 @@ class FavoreteContects extends StatelessWidget {
                               'User Name',
                               style: TextStyle(
                                 color: Colors.blueGrey,
-                                fontSize: 16.0,
+                                fontSize: 12.0,
                                 fontWeight: FontWeight.w600,
                               ),
                             )
-
                           ],
                         ),
                       ),

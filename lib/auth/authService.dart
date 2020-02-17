@@ -18,13 +18,19 @@ class AuthService {
   final CollectionReference _usersCollection =
       Firestore.instance.collection('users');
 
+  //  auth chanage user stream
+  Stream<User> get user {
+    return _firebaseAuth.onAuthStateChanged.map(_userFormFirebaseUser);
+  }
+
+  // create a local data of the user form firebase
+  User _userFormFirebaseUser(FirebaseUser user) {
+    return user != null ? User(uid: user.uid) : null;
+  }
+
   // signUp to a new account using name, email, password
-  Future signUp({
-    String name,
-    String email,
-    String password,
-    String rePassword,
-  }) async {
+  Future signUp(
+      {String name, String email, String password, String rePassword}) async {
     if (password == rePassword) {
       try {
         AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -38,22 +44,21 @@ class AuthService {
     }
   }
 
-  //  auth chanage user stream
-  Stream<User> get user {
-    return _firebaseAuth.onAuthStateChanged.map(_userFormFirebaseUser);
-  }
-
-  // create a local data of the user form firebase
-  User _userFormFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
-  }
-
   // sign in to firebase using email and password
   Future signIn({String email, String password}) async {
     try {
-      AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
       FirebaseUser user = result.user;
       return _userFormFirebaseUser(user);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future signOut() async {
+    try {
+      return await _firebaseAuth.signOut();
     } catch (e) {
       print(e.toString());
     }
