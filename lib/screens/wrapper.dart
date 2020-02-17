@@ -1,6 +1,6 @@
 import 'package:chat_fire/models/user.dart';
 import 'package:chat_fire/screens/authencation/signIn/signIn.dart';
-import 'package:chat_fire/screens/chat_home/chat.dart';
+import 'package:chat_fire/screens/chatHome/chat.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 

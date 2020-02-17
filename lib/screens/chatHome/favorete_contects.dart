@@ -25,7 +25,7 @@ class FavoreteContects extends StatelessWidget {
                     Text(
                       'Favorete Contects',
                       style: TextStyle(
-                        fontSize: 18.0,
+                        fontSize: 16.0,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.0,
                         color: Colors.blueGrey,
@@ -34,7 +34,7 @@ class FavoreteContects extends StatelessWidget {
                     IconButton(
                       icon: Icon(Icons.more_horiz),
                       color: Colors.blueGrey,
-                      iconSize: 20.0,
+                      iconSize: 16.0,
                       onPressed: () {},
                     ),
                   ],
@@ -45,19 +45,15 @@ class FavoreteContects extends StatelessWidget {
                 child: ListView.builder(
                   padding: EdgeInsets.only(left: 10.0),
                   scrollDirection: Axis.horizontal,
-                  itemCount: 3,
+                  itemCount: 4,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Column(
                           children: <Widget>[
-                            CircleAvatar(
-                              radius: 24.0,
-                            ),
-                            SizedBox(
-                              height: 6.0,
-                            ),
+                            CircleAvatar(radius: 26.0),
+                            SizedBox(height: 6.0),
                             Text(
                               'User Name',
                               style: TextStyle(

@@ -25,11 +25,9 @@ class _CategorySelectorState extends State<CategorySelector> {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              setState( 
-                () {
-                  slectedIndex = index;
-                },
-              );
+              setState(() {
+                slectedIndex = index;
+              });
             },
             child: Padding(
               padding: EdgeInsets.symmetric(

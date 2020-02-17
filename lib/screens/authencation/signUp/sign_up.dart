@@ -1,6 +1,6 @@
 import 'package:chat_fire/auth/authService.dart';
 import 'package:chat_fire/screens/authencation/signIn/signIn.dart';
-import 'package:chat_fire/screens/chat_home/chat.dart';
+import 'package:chat_fire/screens/chatHome/chat.dart';
 import 'package:chat_fire/shared/constant.dart';
 
 import 'package:flutter/material.dart';
