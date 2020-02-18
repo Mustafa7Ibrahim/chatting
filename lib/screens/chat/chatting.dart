@@ -1,4 +1,9 @@
+import 'package:chat_fire/models/chat.dart';
+import 'package:chat_fire/screens/chat/MessagesList.dart';
+import 'package:chat_fire/services/chatCollection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Chatting extends StatefulWidget {
   @override
@@ -7,56 +12,56 @@ class Chatting extends StatefulWidget {
 
 class _ChattingState extends State<Chatting> {
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      appBar: appBarComponent(context),
-      body: body(context),
-    );
-  }
-
-  Widget appBarComponent(context) {
     final theme = Theme.of(context);
-    return AppBar(
-      elevation: 0.0,
-      title: Text(
-        'User Name',
-        style: TextStyle(
-          fontSize: 18.0,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      centerTitle: true,
-      backgroundColor: theme.primaryColor,
-      leading: IconButton(
-        icon: Icon(Icons.navigate_before),
-        iconSize: 25.0,
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.more_horiz),
-          iconSize: 25.0,
-          onPressed: () {},
-        ),
-      ],
-    );
-  }
+    final messages = Provider.of<List<Messages>>(context) ?? [];
 
-  Widget body(context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30.0),
-          topRight: Radius.circular(30.0),
+    return StreamProvider<List<Messages>>.value(
+      value: ChatCollection().messages,
+      child: Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
+        appBar: AppBar(
+          elevation: 0.0,
+          title: Text(
+            'User Name',
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+          backgroundColor: theme.primaryColor,
+          leading: IconButton(
+            icon: Icon(Icons.navigate_before),
+            iconSize: 25.0,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.more_horiz),
+              iconSize: 25.0,
+              onPressed: () {},
+            ),
+          ],
         ),
-      ),
-      child: Column(
-        children: <Widget>[
-          sendMessageBar(context),
-        ],
+        body: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
+            ),
+          ),
+          child: Column(
+            children: <Widget>[
+              ListView.builder(
+                itemCount: messages.length,
+                itemBuilder: (context, index) {
+                  return MessagesList(messages: messages[index]);
+                },
+              ),
+              sendMessageBar(context),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -91,7 +96,7 @@ class _ChattingState extends State<Chatting> {
                       value,
                     ) {},
                     decoration: InputDecoration.collapsed(
-                      hintText: 'Send a message..',
+                      hintText: 'Type a message..',
                     ),
                   ),
                 ),

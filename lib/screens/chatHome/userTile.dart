@@ -1,4 +1,5 @@
 import 'package:chat_fire/models/user.dart';
+import 'package:chat_fire/screens/chat/chatting.dart';
 import 'package:flutter/material.dart';
 
 class UserTile extends StatelessWidget {
@@ -15,12 +16,12 @@ class UserTile extends StatelessWidget {
       ),
       title: Text(user.name),
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => Chatting(),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Chatting(),
+          ),
+        );
       },
     );
   }

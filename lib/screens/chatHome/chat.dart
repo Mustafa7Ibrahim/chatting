@@ -1,7 +1,7 @@
 
 import 'package:chat_fire/auth/authService.dart';
 import 'package:chat_fire/models/user.dart';
-import 'package:chat_fire/services/chatCollection.dart';
+import 'package:chat_fire/services/usersCollection.dart';
 import 'package:provider/provider.dart';
 
 import './category_selector.dart';
@@ -21,7 +21,7 @@ class _ChatHomeState extends State<ChatHome> {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<User>>.value(
-      value: ChatDatabase().users,
+      value: UsersDatabase().users,
           child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
