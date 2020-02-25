@@ -5,7 +5,6 @@ import 'package:chat_fire/services/usersCollection.dart';
 import 'package:provider/provider.dart';
 
 import './category_selector.dart';
-import './favorete_contects.dart';
 import './recent_chats.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +44,6 @@ class _ChatHomeState extends State<ChatHome> {
         body: Column(
           children: <Widget>[
             CategorySelector(),
-            FavoreteContects(),
             RecentChats(),
           ],
         ),

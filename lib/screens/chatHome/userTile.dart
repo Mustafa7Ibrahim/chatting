@@ -16,12 +16,12 @@ class UserTile extends StatelessWidget {
       ),
       title: Text(user.name),
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Chatting(),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => Chatting(),
+        //   ),
+        // );
       },
     );
   }

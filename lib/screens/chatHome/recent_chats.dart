@@ -10,7 +10,7 @@ class RecentChats extends StatelessWidget {
 
     return Expanded(
       child: Container(
-        color: Theme.of(context).accentColor,
+      color: Theme.of(context).primaryColor,
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
