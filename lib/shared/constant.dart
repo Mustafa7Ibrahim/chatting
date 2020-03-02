@@ -13,7 +13,17 @@ const formPadding = const EdgeInsets.only(
   right: 30.0,
 );
 
-final themeColor = Color(0xfff5a623);
-final primaryColor = Color(0xff203152);
+final themeColor = Colors.blue;
+final primaryColor = Colors.black;
 final greyColor = Color(0xffaeaeae);
 final greyColor2 = Color(0xffE8E8E8);
+
+// my theme
+final myMessageTheme = Colors.blue;
+final myMessageText = Colors.white;
+
+// frind theme
+final fMessageTheme = Color(0xffaeaeae);
+final fmessageText = Colors.black;
+
+
