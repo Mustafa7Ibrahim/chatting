@@ -97,7 +97,11 @@ class EditBoxState extends State<EditBox> {
                   Spacer(),
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: 30.0, top: 18.0, right: 30.0, bottom: 60.0),
+                      left: 30.0,
+                      top: 18.0,
+                      right: 30.0,
+                      bottom: 60.0,
+                    ),
                     child: Container(
                       color: Colors.red[300],
                       child: IconButton(
@@ -112,9 +116,11 @@ class EditBoxState extends State<EditBox> {
                               error = "Please enter a valid email and password";
                             } else {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ChatHome()));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChatHome(),
+                                ),
+                              );
                             }
                           }
                         },

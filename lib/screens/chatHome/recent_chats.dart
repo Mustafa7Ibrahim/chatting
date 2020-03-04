@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 class RecentChats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final users = Provider.of<List<User>>(context) ?? [];
-
     return Expanded(
       child: Container(
         color: Theme.of(context).primaryColor,
@@ -49,14 +47,16 @@ class RecentChats extends StatelessWidget {
         radius: 26.0,
         backgroundColor: Theme.of(context).primaryColor,
       ),
-      title: Text(document['userName']),
+      title: Text(document['nickname']),
+      subtitle: Text('Last Message in this chat should be here..'),
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => Chatting(
-              peerId: document.documentID,
-              peerAvatar: document['photoUrl'],
+              freindId: document.documentID,
+              freindAvatar: document['photoUrl'],
+              freindName: document['nickname'],
             ),
           ),
         );

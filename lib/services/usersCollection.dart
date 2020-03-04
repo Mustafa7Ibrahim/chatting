@@ -3,13 +3,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UsersDatabase {
   // an instance of firestore
-  final CollectionReference _usersCollection =
-      Firestore.instance.collection('users');
+  final CollectionReference _usersCollection = Firestore.instance.collection('users');
 
   List<User> _userListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((names) {
       return User(
-        name: names.data['userName'] ?? '',
+        uid: names.data['id'],
+        nickname: names.data['nickname'] ?? '',
+        photoUrl: names.data['photoUrl'] ?? '',
+        createdAt: names.data['createdAt'] ?? '',
+        chattingWith: names.data['chattingWith'] ?? '',
       );
     }).toList();
   }

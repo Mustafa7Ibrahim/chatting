@@ -2,6 +2,7 @@ import 'package:chat_fire/auth/authService.dart';
 import 'package:chat_fire/screens/authencation/signIn/signIn.dart';
 import 'package:chat_fire/screens/chatHome/chat.dart';
 import 'package:chat_fire/shared/constant.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,6 +15,9 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   // an auth service object
   final AuthService _authService = AuthService();
+
+  // firebase user
+  FirebaseUser user;
 
   // global form key
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
