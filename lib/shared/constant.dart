@@ -15,6 +15,7 @@ const formPadding = const EdgeInsets.only(
 
 final themeColor = Colors.blue;
 final primaryColor = Colors.black;
+final accentColor = Colors.blue[50];
 final greyColor = Color(0xffaeaeae);
 final greyColor2 = Color(0xffE8E8E8);
 

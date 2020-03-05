@@ -28,8 +28,9 @@ class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   // an instance of firestore
-  final CollectionReference _usersCollection =
-      Firestore.instance.collection('users');
+  final CollectionReference _usersCollection = Firestore.instance.collection(
+    'users',
+  );
 
   //  auth chanage user stream
   Stream<User> get user {
@@ -37,27 +38,25 @@ class AuthService {
   }
 
   // create a local data of the user form firebase
-  User _userFormFirebase(FirebaseUser user, {DocumentSnapshot snapshot}) {
-    return user != null
-        ? User(
-            uid: user.uid,
-            nickname: snapshot.data['nickname'],
-            photoUrl: snapshot.data['photoUrl'],
-            chattingWith: snapshot.data['chattingWith'],
-            createdAt: snapshot.data['createdAt'],
-          )
-        : null;
+  User _userFormFirebase(FirebaseUser user) {
+    return user != null ? User(uid: user.uid) : null;
   }
 
   // signUp to a new account using name, email, password
-  Future signUp(
-      {String name, String email, String password, String rePassword}) async {
+  Future signUp({
+    String name,
+    String email,
+    String password,
+    String rePassword,
+  }) async {
     if (password == rePassword) {
       try {
         sharedPreferences = await SharedPreferences.getInstance();
 
         AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
-            email: email, password: password);
+          email: email,
+          password: password,
+        );
 
         FirebaseUser user = result.user;
 
@@ -81,19 +80,32 @@ class AuthService {
 
             // write data to local
             currentUser = user;
-            await sharedPreferences.setString('uid', currentUser.uid);
             await sharedPreferences.setString(
-                'nickname', currentUser.displayName);
-            await sharedPreferences.setString('photoUrl', currentUser.photoUrl);
+              'uid',
+              currentUser.uid,
+            );
+            await sharedPreferences.setString(
+              'nickname',
+              currentUser.displayName,
+            );
+            await sharedPreferences.setString(
+              'photoUrl',
+              currentUser.photoUrl,
+            );
           } else {
             // Write data to local
-            await sharedPreferences.setString('uid', documents[0]['id']);
             await sharedPreferences.setString(
-                'nickname', documents[0]['nickname']);
+              'uid',
+              documents[0]['id'],
+            );
             await sharedPreferences.setString(
-                'photoUrl', documents[0]['photoUrl']);
+              'nickname',
+              documents[0]['nickname'],
+            );
             await sharedPreferences.setString(
-                'aboutMe', documents[0]['aboutMe']);
+              'photoUrl',
+              documents[0]['photoUrl'],
+            );
           }
           Fluttertoast.showToast(msg: "Sign Up success");
         }
@@ -110,19 +122,32 @@ class AuthService {
   Future signIn({String email, String password}) async {
     try {
       AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
       FirebaseUser user = result.user;
+      
       if (user != null) {
         final QuerySnapshot result = await _usersCollection
             .where('id', isEqualTo: user.uid)
             .getDocuments();
+
         final List<DocumentSnapshot> documents = result.documents;
+
         if (documents.length == 0) {
           currentUser = user;
-          await sharedPreferences.setString('uid', currentUser.uid);
           await sharedPreferences.setString(
-              'nickname', currentUser.displayName);
-          await sharedPreferences.setString('photoUrl', currentUser.photoUrl);
+            'uid',
+            currentUser.uid,
+          );
+          await sharedPreferences.setString(
+            'nickname',
+            currentUser.displayName,
+          );
+          await sharedPreferences.setString(
+            'photoUrl',
+            currentUser.photoUrl,
+          );
         }
         Fluttertoast.showToast(msg: "Sign In success");
       }

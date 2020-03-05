@@ -1,11 +1,15 @@
+import 'package:chat_fire/models/user.dart';
 import 'package:chat_fire/screens/chat/chatting.dart';
 import 'package:chat_fire/shared/constant.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RecentChats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // users list
+    final users = Provider.of<List<User>>(context) ?? [];
+
     return Expanded(
       child: Container(
         color: Theme.of(context).primaryColor,
@@ -17,46 +21,44 @@ class RecentChats extends StatelessWidget {
               topRight: const Radius.circular(30.0),
             ),
           ),
-          child: StreamBuilder(
-              stream: Firestore.instance.collection('users').snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(themeColor),
+          child: users.length == null
+              ? Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      themeColor,
                     ),
-                  );
-                } else {
-                  return ListView.builder(
-                    itemCount: snapshot.data.documents.length,
-                    padding: EdgeInsets.only(top: 18, bottom: 18),
-                    itemBuilder: (context, index) =>
-                        userTile(context, snapshot.data.documents[index]),
-                  );
-                }
-              }),
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: users.length,
+                  padding: EdgeInsets.only(top: 18, bottom: 18),
+                  itemBuilder: (context, index) => userTile(
+                    context,
+                    users[index],
+                  ),
+                ),
         ),
       ),
     );
   }
 
-  Widget userTile(BuildContext context, DocumentSnapshot document) {
+  Widget userTile(BuildContext context, User users) {
     return ListTile(
       contentPadding: EdgeInsets.only(bottom: 12, right: 18, left: 18),
       leading: CircleAvatar(
         radius: 26.0,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: fMessageTheme,
       ),
-      title: Text(document['nickname']),
-      subtitle: Text('Last Message in this chat should be here..'),
+      title: Text(users.nickname),
+      subtitle: Text(users.chattingWith),
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => Chatting(
-              freindId: document.documentID,
-              freindAvatar: document['photoUrl'],
-              freindName: document['nickname'],
+              freindId: users.uid,
+              freindAvatar: users.photoUrl,
+              freindName: users.nickname,
             ),
           ),
         );

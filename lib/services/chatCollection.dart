@@ -1,5 +1,4 @@
 // import 'package:chat_fire/auth/authService.dart';
-// import 'package:chat_fire/models/chat.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 // class ChatCollection {
